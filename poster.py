@@ -2,6 +2,14 @@ import streamlit as st
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 import textwrap
 import io
+import requests
+
+def load_image_from_drive(file_id):
+    url = f"https://drive.google.com/uc?id={file_id}"
+    response = requests.get(url)
+    img = Image.open(io.BytesIO(response.content)).convert("RGBA")
+    return img
+
 
 def draw_multiline_text(draw, text, position, font, max_chars, fill, line_spacing=8):
     """Wrap and draw text neatly inside boxes"""
@@ -26,7 +34,7 @@ canvas_width, canvas_height = 1300, 1800
 
 # Load background or solid color
 try:
-    bg_image = Image.open("bg1.png").convert("RGBA")
+    bg_image = load_image_from_drive("https://drive.google.com/file/d/1XphcT8WRftLRXsfuMSYanJdHuSqgiaUU/view?usp=sharing")  # replace with your actual file ID
     bg_image = bg_image.resize((canvas_width, canvas_height))
 except:
     bg_image = Image.new("RGBA", (canvas_width, canvas_height), (0, 41, 127))
@@ -36,11 +44,11 @@ draw = ImageDraw.Draw(poster)
 
 # --- Load and place the 3 top portraits ---
 try:
-    img_t1 = Image.open("revanth.png").resize((200, 180))  # Replace with actual image path
-    img_t2 = Image.open("rohith.png").resize((200, 180))
-    img_t3 = Image.open("hanmanth.png").resize((200, 180))
+    img_t1 = load_image_from_drive("REPLACE_WITH_ID1").resize((200, 180))
+    img_t2 = load_image_from_drive("REPLACE_WITH_ID2").resize((200, 180))
+    img_t3 = load_image_from_drive("REPLACE_WITH_ID3").resize((200, 180))
 except:
-    img_t1 = Image.new("RGBA", (200, 180), (200, 200, 200, 255))  # grey placeholders
+    img_t1 = Image.new("RGBA", (200, 180), (200, 200, 200, 255))
     img_t2 = Image.new("RGBA", (200, 180), (180, 180, 180, 255))
     img_t3 = Image.new("RGBA", (200, 180), (160, 160, 160, 255))
 
