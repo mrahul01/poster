@@ -5,7 +5,7 @@ import io
 import requests
 
 def load_image_from_drive(file_id):
-    url = f"https://drive.google.com/uc?id={file_id}"
+    url = file_id
     response = requests.get(url)
     img = Image.open(io.BytesIO(response.content)).convert("RGBA")
     return img
