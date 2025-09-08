@@ -44,9 +44,9 @@ draw = ImageDraw.Draw(poster)
 
 # --- Load and place the 3 top portraits ---
 try:
-    img_t1 = load_image_from_drive("REPLACE_WITH_ID1").resize((200, 180))
-    img_t2 = load_image_from_drive("REPLACE_WITH_ID2").resize((200, 180))
-    img_t3 = load_image_from_drive("REPLACE_WITH_ID3").resize((200, 180))
+    img_t1 = load_image_from_drive("https://drive.google.com/file/d/13JOrfDblJjAjJIcgHLQk8VWrVoHqTMVh/view?usp=sharing").resize((200, 180))
+    img_t2 = load_image_from_drive("https://drive.google.com/file/d/1OBv_HGEwCMocHRez2XyQPLCYU8g1zr3J/view?usp=sharing").resize((200, 180))
+    img_t3 = load_image_from_drive("https://drive.google.com/file/d/1tKG4p5xOmK8_E2oThaUzmcqEMy9i7jkq/view?usp=sharing").resize((200, 180))
 except:
     img_t1 = Image.new("RGBA", (200, 180), (200, 200, 200, 255))
     img_t2 = Image.new("RGBA", (200, 180), (180, 180, 180, 255))
