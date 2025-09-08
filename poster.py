@@ -3,6 +3,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 import textwrap
 import io
 import requests
+from pathlib import Path
 
 def load_image_from_drive(share_url):
    
@@ -70,19 +71,29 @@ event_date = st.text_input("Enter Event Date (dd-mm-yyyy):", "04-08-2025")
 date_heading = f"గారి పర్యటన తేదీ: {event_date}"
 date_subheading = "పర్యటన వివరాలు"
 
-# Load fonts 
-try: 
-   font_title = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 72) # bold & bigger 
-   font_subtitle = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 44) 
-   font_date = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 42) 
-   font_schedule_bold = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 34) 
-   font_schedule = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 34) 
-except: 
-   font_title = ImageFont.load_default() 
-   font_subtitle = ImageFont.load_default()
-   font_date = ImageFont.load_default() 
-   font_schedule_bold = ImageFont.load_default() 
-   font_schedule = ImageFont.load_default()
+# Font paths
+FONT_REGULAR = "NotoSansTelugu-Regular.ttf"
+FONT_BOLD = "NotoSansTelugu-Bold.ttf"
+
+# Download fonts if not available
+if not Path(FONT_REGULAR).exists():
+    urllib.request.urlretrieve(
+        "https://github.com/google/fonts/raw/main/ofl/notosanstelugu/NotoSansTelugu-Regular.ttf",
+        FONT_REGULAR
+    )
+
+if not Path(FONT_BOLD).exists():
+    urllib.request.urlretrieve(
+        "https://github.com/google/fonts/raw/main/ofl/notosanstelugu/NotoSansTelugu-Bold.ttf",
+        FONT_BOLD
+    )
+
+# Load fonts
+font_title = ImageFont.truetype(FONT_BOLD, 72)
+font_subtitle = ImageFont.truetype(FONT_REGULAR, 44)
+font_date = ImageFont.truetype(FONT_BOLD, 42)
+font_schedule_bold = ImageFont.truetype(FONT_BOLD, 34)
+font_schedule = ImageFont.truetype(FONT_REGULAR, 34)
    
 # --- White Box (Title Section) ---
 white_box_pos = (70, 215, 1250, 370)
