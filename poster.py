@@ -78,11 +78,13 @@ try:
     font_schedule_bold = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 34)
     font_schedule = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 34)
 except:
-    font_title = ImageFont.load_default()
-    font_subtitle = ImageFont.load_default()
-    font_date = ImageFont.load_default()
-    font_schedule_bold = ImageFont.load_default()
-    font_schedule = ImageFont.load_default()
+    st.error("Font loading failed. Make sure the Telugu font files are present.")
+    st.stop()
+    # font_title = ImageFont.load_default()
+    # font_subtitle = ImageFont.load_default()
+    # font_date = ImageFont.load_default()
+    # font_schedule_bold = ImageFont.load_default()
+    # font_schedule = ImageFont.load_default()
 
 # --- White Box (Title Section) ---
 white_box_pos = (70, 215, 1250, 370)
