@@ -62,7 +62,7 @@ paste_rounded_image(poster, img_t2, (525, 20), radius=90)
 paste_rounded_image(poster, img_t3, (950, 20), radius=90)
 
 # Fixed texts
-fixed_title_text1 = "లీలా గ్రూప్ చైర్మన్ డా. మోహన్ నాయక్ గారు"
+fixed_title_text1 = "లీలా గ్రూప్ చైర్మన్ డా. మోహన్ నాయక్"
 fixed_title_text2 = "కాంగ్రెస్ పార్టీ నాయకులు"
 
 # Date input
