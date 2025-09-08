@@ -71,23 +71,24 @@ event_date = st.text_input("Enter Event Date (dd-mm-yyyy):", "04-08-2025")
 date_heading = f"గారి పర్యటన తేదీ: {event_date}"
 date_subheading = "పర్యటన వివరాలు"
 
+# Font file names
 FONT_REGULAR = "AnekTelugu-Regular.ttf"
 FONT_BOLD = "AnekTelugu-Bold.ttf"
 
-# Download Telugu fonts if missing
+# ✅ Download from Google Fonts (not GitHub!)
 if not Path(FONT_REGULAR).exists():
     urllib.request.urlretrieve(
-        "https://github.com/google/fonts/blob/main/ofl/anektelugu/AnekTelugu-Regular.ttf?raw=true",
+        "https://fonts.gstatic.com/s/anektelugu/v8/hYkP3JVxQ2Wdqo56S1tJfZf0nYw.ttf",
         FONT_REGULAR
     )
 
 if not Path(FONT_BOLD).exists():
     urllib.request.urlretrieve(
-        "https://github.com/google/fonts/blob/main/ofl/anektelugu/AnekTelugu-Bold.ttf?raw=true",
+        "https://fonts.gstatic.com/s/anektelugu/v8/hYkP3JVxQ2Wdqo56S1tJXZP0nYw.ttf",
         FONT_BOLD
     )
 
-# ✅ Load Telugu fonts (fallback safe)
+# ✅ Load fonts
 font_title = ImageFont.truetype(FONT_BOLD, 72)
 font_subtitle = ImageFont.truetype(FONT_REGULAR, 44)
 font_date = ImageFont.truetype(FONT_BOLD, 42)
