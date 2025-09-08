@@ -62,12 +62,12 @@ paste_rounded_image(poster, img_t2, (525, 20), radius=90)
 paste_rounded_image(poster, img_t3, (950, 20), radius=90)
 
 # Fixed texts
-fixed_title_text1 = "లీలా గ్రూప్ చైర్మన్ డా,,మోహన్ నాయక్"
+fixed_title_text1 = "లీలా గ్రూప్ చైర్మన్ డా. మోహన్ నాయక్ గారు"
 fixed_title_text2 = "కాంగ్రెస్ పార్టీ నాయకులు"
 
 # Date input
 event_date = st.text_input("Enter Event Date (dd-mm-yyyy):", "04-08-2025")
-date_heading = f"గారి తేదీ:{event_date}"
+date_heading = f"గారి పర్యటన తేదీ: {event_date}"
 date_subheading = "పర్యటన వివరాలు"
 
 # Load fonts
@@ -78,13 +78,11 @@ try:
     font_schedule_bold = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 34)
     font_schedule = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 34)
 except:
-    st.error("Font loading failed. Make sure the Telugu font files are present.")
-    st.stop()
-    # font_title = ImageFont.load_default()
-    # font_subtitle = ImageFont.load_default()
-    # font_date = ImageFont.load_default()
-    # font_schedule_bold = ImageFont.load_default()
-    # font_schedule = ImageFont.load_default()
+    font_title = ImageFont.load_default()
+    font_subtitle = ImageFont.load_default()
+    font_date = ImageFont.load_default()
+    font_schedule_bold = ImageFont.load_default()
+    font_schedule = ImageFont.load_default()
 
 # --- White Box (Title Section) ---
 white_box_pos = (70, 215, 1250, 370)
