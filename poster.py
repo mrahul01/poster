@@ -71,13 +71,18 @@ date_heading = f"గారి పర్యటన తేదీ: {event_date}"
 date_subheading = "పర్యటన వివరాలు"
 
 # Load fonts
+# Path to fonts
+font_path = Path("NotoSansTelugu-Regular.ttf")
+font_path_bold = Path("NotoSansTelugu-Bold.ttf")
+
 try:
-    font_title = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 72)   # bold & bigger
-    font_subtitle = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 44)
-    font_date = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 42)
-    font_schedule_bold = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 34)
-    font_schedule = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 34)
-except:
+    font_title = ImageFont.truetype(str(font_path_bold), 72)   # Telugu supported font
+    font_subtitle = ImageFont.truetype(str(font_path), 44)
+    font_date = ImageFont.truetype(str(font_path_bold), 42)
+    font_schedule_bold = ImageFont.truetype(str(font_path_bold), 34)
+    font_schedule = ImageFont.truetype(str(font_path), 34)
+except Exception as e:
+    st.error(f"Font loading failed: {e}")
     font_title = ImageFont.load_default()
     font_subtitle = ImageFont.load_default()
     font_date = ImageFont.load_default()
