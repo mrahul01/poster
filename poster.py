@@ -71,19 +71,12 @@ event_date = st.text_input("Enter Event Date (dd-mm-yyyy):", "04-08-2025")
 date_heading = f"గారి పర్యటన తేదీ: {event_date}"
 date_subheading = "పర్యటన వివరాలు"
 
-try:
-    font_title = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 72)   # bold & bigger
-    font_subtitle = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 44)
-    font_date = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 42)
-    font_schedule_bold = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 34)
-    font_schedule = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 34)
-except:
-    font_title = ImageFont.load_default()
-    font_subtitle = ImageFont.load_default()
-    font_date = ImageFont.load_default()
-    font_schedule_bold = ImageFont.load_default()
-    font_schedule = ImageFont.load_default()
-   
+font_title = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 72)
+font_subtitle = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 44)
+font_date = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 42)
+font_schedule_bold = ImageFont.truetype("NotoSansTelugu-Bold.ttf", 34)
+font_schedule = ImageFont.truetype("NotoSansTelugu-Regular.ttf", 34)
+
 # --- White Box (Title Section) ---
 white_box_pos = (70, 215, 1250, 370)
 draw.rectangle(white_box_pos, fill="white")
