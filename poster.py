@@ -74,20 +74,25 @@ date_subheading = "పర్యటన వివరాలు"
 FONT_REGULAR = "AnekTelugu-Regular.ttf"
 FONT_BOLD = "AnekTelugu-Bold.ttf"
 
-# Load Telugu fonts
-try:
-    font_title = ImageFont.truetype(FONT_BOLD, 72)   # Title
-    font_subtitle = ImageFont.truetype(FONT_REGULAR, 44)  # Subtitle
-    font_date = ImageFont.truetype(FONT_BOLD, 42)    # Date section
-    font_schedule_bold = ImageFont.truetype(FONT_BOLD, 34)  # Bold time text
-    font_schedule = ImageFont.truetype(FONT_REGULAR, 34)    # Regular schedule
-except Exception as e:
-    print(f"Font load failed: {e}")
-    font_title = ImageFont.load_default()
-    font_subtitle = ImageFont.load_default()
-    font_date = ImageFont.load_default()
-    font_schedule_bold = ImageFont.load_default()
-    font_schedule = ImageFont.load_default()
+# Download Telugu fonts if missing
+if not Path(FONT_REGULAR).exists():
+    urllib.request.urlretrieve(
+        "https://github.com/google/fonts/blob/main/ofl/anektelugu/AnekTelugu-Regular.ttf?raw=true",
+        FONT_REGULAR
+    )
+
+if not Path(FONT_BOLD).exists():
+    urllib.request.urlretrieve(
+        "https://github.com/google/fonts/blob/main/ofl/anektelugu/AnekTelugu-Bold.ttf?raw=true",
+        FONT_BOLD
+    )
+
+# ✅ Load Telugu fonts (fallback safe)
+font_title = ImageFont.truetype(FONT_BOLD, 72)
+font_subtitle = ImageFont.truetype(FONT_REGULAR, 44)
+font_date = ImageFont.truetype(FONT_BOLD, 42)
+font_schedule_bold = ImageFont.truetype(FONT_BOLD, 34)
+font_schedule = ImageFont.truetype(FONT_REGULAR, 34)
 
 # --- White Box (Title Section) ---
 white_box_pos = (70, 215, 1250, 370)
