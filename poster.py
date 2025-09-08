@@ -4,11 +4,15 @@ import textwrap
 import io
 import requests
 
-def load_image_from_drive(file_id):
-    url = file_id
-    response = requests.get(url)
+def load_image_from_drive(share_url):
+   
+    file_id = share_url.split("/d/")[1].split("/")[0]
+    direct_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+    
+    response = requests.get(direct_url)
     img = Image.open(io.BytesIO(response.content)).convert("RGBA")
     return img
+
 
 
 def draw_multiline_text(draw, text, position, font, max_chars, fill, line_spacing=8):
