@@ -4,17 +4,15 @@ import textwrap
 import io
 import requests
 from pathlib import Path
+import urllib.request   # ✅ Needed for font download
 
 def load_image_from_drive(share_url):
-   
+    """Load an image directly from Google Drive share link"""
     file_id = share_url.split("/d/")[1].split("/")[0]
     direct_url = f"https://drive.google.com/uc?export=download&id={file_id}"
-    
     response = requests.get(direct_url)
     img = Image.open(io.BytesIO(response.content)).convert("RGBA")
     return img
-
-
 
 def draw_multiline_text(draw, text, position, font, max_chars, fill, line_spacing=8):
     """Wrap and draw text neatly inside boxes"""
@@ -39,7 +37,7 @@ canvas_width, canvas_height = 1300, 1800
 
 # Load background or solid color
 try:
-    bg_image = load_image_from_drive("https://drive.google.com/file/d/1XphcT8WRftLRXsfuMSYanJdHuSqgiaUU/view?usp=sharing")  # replace with your actual file ID
+    bg_image = load_image_from_drive("https://drive.google.com/file/d/1XphcT8WRftLRXsfuMSYanJdHuSqgiaUU/view?usp=sharing")
     bg_image = bg_image.resize((canvas_width, canvas_height))
 except:
     bg_image = Image.new("RGBA", (canvas_width, canvas_height), (0, 41, 127))
@@ -71,29 +69,30 @@ event_date = st.text_input("Enter Event Date (dd-mm-yyyy):", "04-08-2025")
 date_heading = f"గారి పర్యటన తేదీ: {event_date}"
 date_subheading = "పర్యటన వివరాలు"
 
-# Font file names
+# --- Font Setup ---
 FONT_REGULAR = "AnekTelugu-Regular.ttf"
 FONT_BOLD = "AnekTelugu-Bold.ttf"
 
-# ✅ Download from Google Fonts (not GitHub!)
 if not Path(FONT_REGULAR).exists():
     urllib.request.urlretrieve(
         "https://fonts.gstatic.com/s/anektelugu/v8/hYkP3JVxQ2Wdqo56S1tJfZf0nYw.ttf",
         FONT_REGULAR
     )
-
 if not Path(FONT_BOLD).exists():
     urllib.request.urlretrieve(
         "https://fonts.gstatic.com/s/anektelugu/v8/hYkP3JVxQ2Wdqo56S1tJXZP0nYw.ttf",
         FONT_BOLD
     )
 
-# ✅ Load fonts
-font_title = ImageFont.truetype(FONT_BOLD, 72)
-font_subtitle = ImageFont.truetype(FONT_REGULAR, 44)
-font_date = ImageFont.truetype(FONT_BOLD, 42)
-font_schedule_bold = ImageFont.truetype(FONT_BOLD, 34)
-font_schedule = ImageFont.truetype(FONT_REGULAR, 34)
+# Load fonts safely
+try:
+    font_title = ImageFont.truetype(FONT_BOLD, 72)
+    font_subtitle = ImageFont.truetype(FONT_REGULAR, 44)
+    font_date = ImageFont.truetype(FONT_BOLD, 42)
+    font_schedule_bold = ImageFont.truetype(FONT_BOLD, 34)
+    font_schedule = ImageFont.truetype(FONT_REGULAR, 34)
+except:
+    font_title = font_subtitle = font_date = font_schedule_bold = font_schedule = ImageFont.load_default()
 
 # --- White Box (Title Section) ---
 white_box_pos = (70, 215, 1250, 370)
@@ -164,9 +163,9 @@ for i, line in enumerate(schedule_lines):
 
     # Calculate the starting position for the rest of the text
     time_bbox = font_schedule_bold.getbbox(time_text)
-    x_offset = start_x + (time_bbox[2] - time_bbox[0]) + 10 # Add 10 for some space after the bold text
+    x_offset = start_x + (time_bbox[2] - time_bbox[0]) + 10
 
-    # Draw the rest of the schedule text with the regular font
+    # Draw the rest of the schedule text
     draw_multiline_text(draw, rest_of_text, (x_offset, start_y), font_schedule, max_chars=34, fill=(0, 0, 0))
 
 # Final poster
@@ -177,4 +176,3 @@ buf = io.BytesIO()
 poster.save(buf, format="PNG")
 byte_im = buf.getvalue()
 st.download_button("Download Poster as PNG", data=byte_im, file_name="generated_telugu_poster.png", mime="image/png")
-
